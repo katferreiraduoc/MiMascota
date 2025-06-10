@@ -1,20 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PetService } from '../../services/pet.service';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
-@Component({
-  selector: 'app-vaccine-tracker',
-  templateUrl: './vaccine-tracker.page.html',
-  styleUrls: ['./vaccine-tracker.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
-})
-export class VaccineTrackerPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+@Component({ standalone: true, selector: 'app-vaccine-tracker', templateUrl: './vaccine-tracker.page.html', imports: [IonicModule, CommonModule, FormsModule] })
+export class VaccineTrackerPage {
+  petId!: number;
+  petVac?: import('../../models/pet').Pet;
+  vaccineName = '';
+  vaccineDate = '';
+  constructor(private route: ActivatedRoute, private petS: PetService) {
+    this.petId = Number(this.route.snapshot.paramMap.get('id'));
+    this.petVac = this.petS.getById(this.petId);
   }
-
+  addVaccine() {
+    if (this.petVac) {
+      this.petS.addVaccine(this.petId, { name: this.vaccineName, date: this.vaccineDate });
+      this.vaccineName = '';
+      this.vaccineDate = '';
+    }
+  }
 }

@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { PetService } from '../../services/pet.service';
+import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-add-pet',
   templateUrl: './add-pet.page.html',
-  styleUrls: ['./add-pet.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class AddPetPage implements OnInit {
+export class AddPetPage {
+  name = '';
+  birthDate = '';
+  weight!: number;
+  breed = '';
+  color = '';
 
-  constructor() { }
+  constructor(private petS: PetService, private router: Router) {}
 
-  ngOnInit() {
+  save() {
+    this.petS.add({ name: this.name, birthDate: this.birthDate, weight: this.weight, breed: this.breed, color: this.color });
+    this.router.navigate(['/home']);
   }
-
 }

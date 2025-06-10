@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { Pet } from '../../models/pet';
+import { PetService } from '../../services/pet.service';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, RouterModule]
 })
+
 export class HomePage implements OnInit {
-
-  constructor() { }
-
+  pets: Pet[] = [];  // Aseguramos el tipo Pet[]
+  constructor(private petS: PetService, private router: Router) {}
   ngOnInit() {
+    this.pets = this.petS.getAll();
   }
-
+  goAdd() {
+    this.router.navigate(['/add-pet']);
+  }
 }

@@ -1,13 +1,8 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>pet-detail</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">pet-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-header><ion-toolbar><ion-title>{{ pet.name }}</ion-title></ion-toolbar></ion-header>
+<ion-content class="ion-padding">
+  <p>Fecha de Nac.: {{ pet.birthDate }}</p>
+  <p>Peso: {{ pet.weight }} kg</p>
+  <p>Raza: {{ pet.breed }}</p>
+  <p>Color: {{ pet.color }}</p>
+  <ion-button expand="block" (click)="goVaccines()">Vacunas</ion-button>
 </ion-content>
