@@ -10,11 +10,12 @@ export class VaccineTrackerPage {
   petId!: number;
   petVac?: import('../../models/pet').Pet;
   vaccineName = '';
-  vaccineDate = '';
+  vaccineDate = new Date().toISOString().slice(0,10);
   constructor(private route: ActivatedRoute, private petS: PetService) {
     this.petId = Number(this.route.snapshot.paramMap.get('id'));
     this.petVac = this.petS.getById(this.petId);
   }
+
   addVaccine() {
     if (this.petVac) {
       this.petS.addVaccine(this.petId, { name: this.vaccineName, date: this.vaccineDate });

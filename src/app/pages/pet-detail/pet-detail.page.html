@@ -1,6 +1,13 @@
-<ion-header><ion-toolbar><ion-title>{{ pet.name }}</ion-title></ion-toolbar></ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ pet.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="ion-padding">
-  <p>Fecha de Nac.: {{ pet.birthDate }}</p>
+  <p>Fecha de Nacimiento: {{ pet.birthDate | date:'dd-MM-yyyy' }}</p>
   <p>Peso: {{ pet.weight }} kg</p>
   <p>Raza: {{ pet.breed }}</p>
   <p>Color: {{ pet.color }}</p>
